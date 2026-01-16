@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Accueil" />
+    <item
+        android:id="@+id/nav_calc"
+        android:icon="@drawable/ic_calc"
+        android:title="Calcul" />
+    <item
+        android:id="@+id/nav_network"
+        android:icon="@drawable/ic_reseau"
+        android:title="Réseau" />
+    <item
+        android:id="@+id/nav_carte"
+        android:icon="@drawable/ic_carte"
+        android:title="Carte" />
+</menu>
