@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="6dp">
 
@@ -32,19 +32,26 @@
     </androidx.cardview.widget.CardView>
 
     <!-- Bouton de recentrage -->
-    <ImageButton
-        android:id="@+id/btn_center"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_center_container"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@android:color/white"
-        android:elevation="6dp"
-        android:padding="10dp"
-        android:scaleType="centerInside"
-        android:src="@android:drawable/ic_menu_mylocation"
-        android:contentDescription="Recentrer" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="6dp">
+
+        <ImageButton
+            android:id="@+id/btn_center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_mylocation"
+            android:contentDescription="Recentrer" />
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
