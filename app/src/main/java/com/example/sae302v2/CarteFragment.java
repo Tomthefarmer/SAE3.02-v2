@@ -1,64 +1,182 @@
 package com.example.sae302v2;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CarteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
+
+// MQTT
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+import org.json.JSONObject;
+import org.osmdroid.config.Configuration;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+
+import java.util.Locale;
+
 public class CarteFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private MapView map = null;
+    private TextView tvCoordinates;
+    private GeoPoint lastKnownLocation = null;
+    private MqttClient mqttClient;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // Configuration MQTT
+    // Broker URL (Public address)
+    private final String BROKER_URL = "tcp://eu1.cloud.thethings.network:1883";
 
-    public CarteFragment() {
-        // Required empty public constructor
-    }
+    // Username
+    private final String APP_ID = "thomas-clement-handy-gps";
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CarteFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CarteFragment newInstance(String param1, String param2) {
-        CarteFragment fragment = new CarteFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    // Device ID
+    private final String DEVICE_ID = "seeeduino-lorawan-gps";
+
+    // Password
+    private final String API_KEY = "NNSXS.S5GAUQ7LLDVHBXBI6K6PPHTRN64TH6NO5ULRA5Y.NDULIYEJXOCMKWTCLWQA2C2VDARTJ43OFLOVPCLPMZRE5ID2YZFQ";
+
+    // Le topic standard TTN v3 pour s'abonner aux messages montants (uplink)
+    private final String TOPIC = "v3/" + APP_ID + "@ttn/devices/" + DEVICE_ID + "/up";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Initialisation d'OSM droid (Gestion des tuiles de la carte)
+        Configuration.getInstance().load(getContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
+
+        View v = inflater.inflate(R.layout.fragment_carte, container, false);
+        map = v.findViewById(R.id.map);
+        tvCoordinates = v.findViewById(R.id.tv_coordinates);
+        map.setMultiTouchControls(true);
+
+        // Bouton de recentrage sur le dernier marqueur reçu
+        View btnCenter = v.findViewById(R.id.btn_center);
+        btnCenter.setOnClickListener(view -> {
+            if (lastKnownLocation != null) {
+                map.getController().animateTo(lastKnownLocation);
+                map.getController().setZoom(18.0);
+            }
+        });
+
+        // Position par défaut au démarrage (IUT de Roanne)
+        GeoPoint startPoint = new GeoPoint(46.0445, 4.0728);
+        map.getController().setZoom(15.0);
+        map.getController().setCenter(startPoint);
+
+        // Lancement de la connexion client MQTT
+        connecterMQTT();
+
+        return v;
+    }
+
+    private void connecterMQTT() {
+        try {
+            String clientId = MqttClient.generateClientId();
+            mqttClient = new MqttClient(BROKER_URL, clientId, new MemoryPersistence());
+
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setUserName(APP_ID + "@ttn"); // Username TTN
+            options.setPassword(API_KEY.toCharArray()); // Password (API KEY)
+            options.setAutomaticReconnect(true);
+            options.setCleanSession(true);
+
+            mqttClient.setCallback(new MqttCallback() {
+                @Override
+                public void connectionLost(Throwable cause) {
+                    Log.e("MQTT_TTN", "Connexion perdue : " + cause.getMessage());
+                }
+
+                @Override
+                public void messageArrived(String topic, MqttMessage message) throws Exception {
+                    String payload = new String(message.getPayload());
+                    Log.d("MQTT_TTN", "Message reçu : " + payload);
+
+                    // Analyse du JSON reçu de TTN pour extraire la latitude et la longitude
+                    JSONObject json = new JSONObject(payload);
+                    JSONObject decoded = json.getJSONObject("uplink_message")
+                            .getJSONObject("decoded_payload");
+
+                    if (decoded.has("latitude") && decoded.has("longitude")) {
+                        double lat = decoded.getDouble("latitude");
+                        double lng = decoded.getDouble("longitude");
+
+                        // Mise à jour de l'interface graphique sur le thread principal (UI Thread)
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> ajouterMarqueur(lat, lng));
+                        }
+                    }
+                }
+
+                @Override
+                public void deliveryComplete(IMqttDeliveryToken token) { }
+            });
+
+            mqttClient.connect(options);
+            mqttClient.subscribe(TOPIC);
+            Log.d("MQTT_TTN", "Succès : Connecté au broker et abonné au topic");
+
+        } catch (MqttException e) {
+            Log.e("MQTT_TTN", "Erreur lors de la connexion MQTT : " + e.getMessage());
         }
     }
 
+    private void ajouterMarqueur(double lat, double lng) {
+        if (map == null) return;
+
+        lastKnownLocation = new GeoPoint(lat, lng);
+        tvCoordinates.setText(String.format(Locale.FRANCE, "Lat: %.6f\nLng: %.6f", lat, lng));
+
+        Marker marker = new Marker(map);
+        marker.setPosition(lastKnownLocation);
+
+        // Récupère l'image depuis les ressources
+        android.graphics.drawable.Drawable customIcon = androidx.core.content.res.ResourcesCompat.getDrawable(getResources(), R.drawable.ic_marqueur_xml, null);
+        marker.setIcon(customIcon);
+        // Ajuste l'ancrage pour que la pointe de l'image soit sur les coordonnées
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+
+        marker.setTitle("Position Capteur");
+
+        // Nettoie l'ancien marqueur et affiche le nouveau
+        map.getOverlays().clear();
+        map.getOverlays().add(marker);
+        map.invalidate();
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_carte, container, false);
+    public void onResume() {
+        super.onResume();
+        map.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        map.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try {
+            // Fermeture propre de la connexion pour libérer les ressources
+            if (mqttClient != null && mqttClient.isConnected()) {
+                mqttClient.disconnect();
+            }
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
     }
 }

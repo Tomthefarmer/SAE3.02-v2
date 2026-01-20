@@ -41,4 +41,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
+    implementation("androidx.preference:preference:1.2.1")
+    implementation("org.osmdroid:osmdroid-android:6.1.20")
+    implementation("org.json:json:20240303")
 }
