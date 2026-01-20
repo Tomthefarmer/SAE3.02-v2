@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_calc) {
                 selectedFragment = new CalcFragment();
             } else if (itemId == R.id.nav_network) {
-                selectedFragment = new NetworkFragment();
+                selectedFragment = new ReseauFragment();
             } else if (itemId == R.id.nav_carte) {
                 selectedFragment = new CarteFragment();
             }
