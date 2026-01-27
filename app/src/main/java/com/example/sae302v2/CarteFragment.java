@@ -136,7 +136,7 @@ public class CarteFragment extends Fragment {
         if (map == null) return;
 
         lastKnownLocation = new GeoPoint(lat, lng);
-        tvCoordinates.setText(String.format(Locale.FRANCE, "Lat: %.6f\nLng: %.6f", lat, lng));
+        tvCoordinates.setText(String.format(Locale.FRANCE, "Latitude: %.6f\nLongitude: %.6f", lat, lng));
 
         Marker marker = new Marker(map);
         marker.setPosition(lastKnownLocation);

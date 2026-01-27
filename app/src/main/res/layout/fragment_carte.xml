@@ -25,8 +25,9 @@
             android:id="@+id/tv_coordinates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
             android:padding="10dp"
-            android:text="Attente de données..."
+            android:text="Attente de la position"
             android:textColor="@android:color/black"
             android:textSize="12sp" />
     </androidx.cardview.widget.CardView>
