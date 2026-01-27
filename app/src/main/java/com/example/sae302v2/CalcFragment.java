@@ -22,7 +22,7 @@ public class CalcFragment extends Fragment implements View.OnClickListener {
 
         tvDisplay = view.findViewById(R.id.tv_display);
 
-        // Liste des IDs des boutons
+        // Listes des IDs des boutons
         int[] buttonIds = {
                 R.id.btn_0, R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4,
                 R.id.btn_5, R.id.btn_6, R.id.btn_7, R.id.btn_8, R.id.btn_9,
@@ -46,8 +46,6 @@ public class CalcFragment extends Fragment implements View.OnClickListener {
             isResult = false;
         }
         else if (id == R.id.btn_del) {
-            // AMÉLIORATION : Si c'est un résultat final, DEL efface tout
-            // Sinon, on efface juste le dernier caractère
             if (isResult || currentInput.length() <= 1) {
                 currentInput = "";
             } else {

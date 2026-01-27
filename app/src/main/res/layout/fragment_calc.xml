@@ -90,7 +90,7 @@
             app:backgroundTint="@color/material_dynamic_primary50"
             android:textSize="20sp" />
 
-        <!-- Ligne 5 : 0 (prend 2 colonnes), . , = -->
+        <!-- Ligne 5 : 0, . , = -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_0"
             style="@style/CalcButtonStyle"
