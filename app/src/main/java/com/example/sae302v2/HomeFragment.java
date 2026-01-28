@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,6 +38,18 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         });
 
+        ImageView logo = view.findViewById(R.id.logo_iut);
+        int currentNightMode = getResources().getConfiguration().uiMode & android.content.res.Configuration.UI_MODE_NIGHT_MASK;
+
+        if (currentNightMode == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
+            // Si mode sombre, on peut appliquer un filtre pour rendre le logo blanc/clair
+            logo.setColorFilter(android.graphics.Color.WHITE, android.graphics.PorterDuff.Mode.SRC_ATOP);
+            // Ou si vous préférez une légère transparence pour mieux l'intégrer :
+            logo.setAlpha(0.8f);
+        }
+
         return view;
     }
+
+
 }

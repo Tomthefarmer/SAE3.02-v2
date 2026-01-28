@@ -1,7 +1,6 @@
 package com.example.sae302v2;
 
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,6 +29,13 @@ public class ServeurFragment extends Fragment {
         for (ClientHandler client : clients) {
             client.sendMessage(message);
         }
+    }
+
+    private int getThemeColor(int attrResId) {android.util.TypedValue typedValue = new android.util.TypedValue();
+        if (getContext() != null && getContext().getTheme().resolveAttribute(attrResId, typedValue, true)) {
+            return typedValue.data;
+        }
+        return 0;
     }
 
     @Override
@@ -62,7 +68,7 @@ public class ServeurFragment extends Fragment {
         int port = Integer.parseInt(portStr);
         isRunning = true;
         btnToggle.setText("Éteindre le serveur");
-        btnToggle.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+        btnToggle.setBackgroundTintList(ColorStateList.valueOf(getThemeColor(R.attr.colorRed)));
 
         // Thread TCP
         new Thread(() -> {
@@ -98,6 +104,8 @@ public class ServeurFragment extends Fragment {
                 }
             } catch (IOException e) { log("Arrêt UDP."); }
         }).start();
+
+
     }
 
     private void stopServer() {
@@ -105,7 +113,7 @@ public class ServeurFragment extends Fragment {
         editPort.setEnabled(true);
         // Mise à jour de l'UI immédiate (Redevient vert)
         btnToggle.setText("Démarrer Serveur");
-        btnToggle.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#388E3C")));
+        btnToggle.setBackgroundTintList(ColorStateList.valueOf(getThemeColor(R.attr.colorGreen)));
 
         new Thread(() -> {
             // 1. Notifier tous les clients et fermer leurs connexions
@@ -197,7 +205,6 @@ public class ServeurFragment extends Fragment {
                     // Extraction des données de la structure complexe
                     String pseudo = json.getString("pseudo");
                     String message = json.getString("message");
-                    long timestamp = json.getLong("timestamp");
                     String proto = json.getString("proto");
 
                     // Affichage formaté dans les logs du serveur

@@ -33,7 +33,7 @@
             style="@style/CalcButtonStyle"
             android:text="AC"
             android:textColor="@android:color/white"
-            app:backgroundTint="@android:color/holo_red_dark"
+            app:backgroundTint="?attr/colorRed"
             android:textSize="14sp" />
 
         <com.google.android.material.button.MaterialButton
@@ -58,9 +58,9 @@
             android:textSize="20sp" />
 
         <!-- Ligne 2 : 7, 8, 9, * -->
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_7" android:text="7" style="@style/CalcButtonStyle" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_8" android:text="8" style="@style/CalcButtonStyle" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_9" android:text="9" style="@style/CalcButtonStyle" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_7" android:text="7" style="@style/CalcButtonStyle" app:backgroundTint="?attr/colorViolet" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_8" android:text="8" style="@style/CalcButtonStyle" app:backgroundTint="?attr/colorViolet" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_9" android:text="9" style="@style/CalcButtonStyle" app:backgroundTint="?attr/colorViolet" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_mul"
             style="@style/CalcButtonStyle"
@@ -69,9 +69,9 @@
             android:textSize="20sp" />
 
         <!-- Ligne 3 : 4, 5, 6, - -->
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_4" android:text="4" style="@style/CalcButtonStyle" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_5" android:text="5" style="@style/CalcButtonStyle" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_6" android:text="6" style="@style/CalcButtonStyle" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_4" android:text="4" style="@style/CalcButtonStyle" app:backgroundTint="?attr/colorViolet" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_5" android:text="5" style="@style/CalcButtonStyle" app:backgroundTint="?attr/colorViolet" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_6" android:text="6" style="@style/CalcButtonStyle" app:backgroundTint="?attr/colorViolet" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sub"
             style="@style/CalcButtonStyle"
@@ -80,9 +80,9 @@
             android:textSize="20sp" />
 
         <!-- Ligne 4 : 1, 2, 3, + -->
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_1" android:text="1" style="@style/CalcButtonStyle" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_2" android:text="2" style="@style/CalcButtonStyle" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/btn_3" android:text="3" style="@style/CalcButtonStyle" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_1" android:text="1" style="@style/CalcButtonStyle" app:backgroundTint="?attr/colorViolet" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_2" android:text="2" style="@style/CalcButtonStyle" app:backgroundTint="?attr/colorViolet" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/btn_3" android:text="3" style="@style/CalcButtonStyle" app:backgroundTint="?attr/colorViolet" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_add"
             style="@style/CalcButtonStyle"
@@ -96,13 +96,13 @@
             style="@style/CalcButtonStyle"
             android:layout_columnSpan="2"
             android:layout_width="0dp"
-            android:text="0" />
+            android:text="0" app:backgroundTint="?attr/colorViolet" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_dot"
             style="@style/CalcButtonStyle"
             android:text="."
-            android:textSize="20sp" />
+            android:textSize="20sp" app:backgroundTint="?attr/colorViolet" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_equal"

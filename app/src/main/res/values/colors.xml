@@ -2,4 +2,21 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="light_green">#388E3C</color>
+    <color name="dark_green">#1B5E20</color>
+
+    <color name="light_red">#D32F2F</color>
+    <color name="dark_red">#8B0000</color>
+
+    <color name="light_violet">#6200EE</color>
+    <color name="dark_violet">#BB86FC</color>
+
+    <!-- Couleurs pour le Mode Clair -->
+    <color name="light_bg_content">#F0F0F0</color> <!-- Gris très clair (pas blanc) -->
+    <color name="light_bg_nav">#E5E5E5</color>     <!-- Un peu plus sombre pour la nav -->
+
+    <!-- Couleurs pour le Mode Sombre -->
+    <color name="dark_bg_content">#1E1E1E</color>  <!-- Gris anthracite (pas noir) -->
+    <color name="dark_bg_nav">#121212</color>      <!-- Plus sombre pour la nav -->
 </resources>

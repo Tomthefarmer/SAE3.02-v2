@@ -1,8 +1,14 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.SAE302V2" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Fond du contenu principal -->
+        <item name="android:windowBackground">@color/light_bg_content</item>
+        <!-- Couleur de la barre de navigation -->
+        <item name="colorSurface">@color/light_bg_nav</item>
+
+        <item name="colorGreen">@color/light_green</item>
+        <item name="colorRed">@color/light_red</item>
+        <item name="colorViolet">@color/light_violet</item>
     </style>
 
     <style name="Theme.SAE302V2" parent="Base.Theme.SAE302V2" />

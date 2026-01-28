@@ -1,7 +1,13 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.SAE302V2" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Fond du contenu principal (Gris clair) -->
+        <item name="android:windowBackground">@color/dark_bg_content</item>
+        <!-- Fond de la navigation (Plus sombre) -->
+        <item name="colorSurface">@color/dark_bg_nav</item>
+
+        <item name="colorGreen">@color/dark_green</item>
+        <item name="colorRed">@color/dark_red</item>
+        <item name="colorViolet">@color/dark_violet</item>
     </style>
 </resources>

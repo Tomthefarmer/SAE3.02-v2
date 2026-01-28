@@ -29,6 +29,13 @@ public class ClientFragment extends Fragment {
     private RadioGroup radioGroupProto;
     private RadioButton radioTcp, radioUdp;
 
+    private int getThemeColor(int attrResId) {android.util.TypedValue typedValue = new android.util.TypedValue();
+        if (getContext() != null && getContext().getTheme().resolveAttribute(attrResId, typedValue, true)) {
+            return typedValue.data;
+        }
+        return 0;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_client, container, false);
@@ -105,7 +112,7 @@ public class ClientFragment extends Fragment {
                     updateUI("Connecté via " + (radioTcp.isChecked() ? "TCP" : "UDP"));
                     btnConnect.setEnabled(true);
                     btnConnect.setText("Déconnexion");
-                    btnConnect.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+                    btnConnect.setBackgroundTintList(ColorStateList.valueOf(getThemeColor(R.attr.colorRed)));
                 });
 
             } catch (Exception e) {
@@ -115,7 +122,7 @@ public class ClientFragment extends Fragment {
                     setFieldsEnabled(true);
                     btnConnect.setEnabled(true);
                     btnConnect.setText("Connexion");
-                    btnConnect.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#388E3C")));
+                    btnConnect.setBackgroundTintList(ColorStateList.valueOf(getThemeColor(R.attr.colorGreen)));
                 });
             }
         }).start();
