@@ -57,7 +57,7 @@ public class ClientFragment extends Fragment {
         });
 
         btnSend.setOnClickListener(v -> sendMessage());
-        btnConnect.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#388E3C")));
+        btnConnect.setBackgroundTintList(ColorStateList.valueOf(getThemeColor(R.attr.colorGreen)));
         return view;
     }
 
@@ -214,7 +214,7 @@ public class ClientFragment extends Fragment {
         new Handler(Looper.getMainLooper()).post(() -> {
             setFieldsEnabled(true);
             btnConnect.setText("Connexion");
-            btnConnect.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#388E3C")));
+            btnConnect.setBackgroundTintList(ColorStateList.valueOf(getThemeColor(R.attr.colorGreen)));
             updateUI("Vous avez été déconnecté.");
         });
     }
