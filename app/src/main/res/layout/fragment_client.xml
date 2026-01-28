@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-</selector>
+    <!-- Configuration Connexion -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+        <EditText android:id="@+id/edit_ip" android:layout_width="0dp" android:layout_weight="2"
+            android:layout_height="wrap_content" android:hint="IP (ex: 192.168.1.1)" />
+        <EditText android:id="@+id/edit_port" android:layout_width="0dp" android:layout_weight="1"
+            android:layout_height="wrap_content" android:hint="Port" android:inputType="number" />
+    </LinearLayout>
+
+    <RadioGroup android:id="@+id/radio_group_proto" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:orientation="horizontal">
+        <RadioButton android:id="@+id/radio_tcp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TCP" android:checked="true"/>
+        <RadioButton android:id="@+id/radio_udp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="UDP" />
+    </RadioGroup>
+
+    <EditText android:id="@+id/edit_user" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Nom d'utilisateur" />
+
+    <Button android:id="@+id/btn_connect" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Connexion" />
+
+    <!-- Envoi de message -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+        <EditText android:id="@+id/edit_message" android:layout_width="0dp" android:layout_weight="1"
+            android:layout_height="wrap_content" android:hint="Message..." />
+        <Button android:id="@+id/btn_send" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Envoyer" />
+    </LinearLayout>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Historique :" android:textStyle="bold" android:layout_marginTop="10dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/txt_history_client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:textSize="14sp" />
+    </ScrollView>
+</LinearLayout>
