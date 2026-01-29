@@ -18,9 +18,9 @@ La vue Calculatrice permet de réaliser des opérations mathématiques de base (
 
 La vue Réseau permet de configurer et de gérer des connexions client/serveur en renseignant l'IP, le port, le protocole (TCP/UDP), et l'utilisateur. Elle permet d'envoyer des messages et de visualiser l'historique des communications.
 Mode Client :  
-![Mode Client](img/image-2.png)
+![Mode Client](img/image-2.png)  
 Mode Serveur :  
-![Mode Serveur](img/image-3.png)
+![Mode Serveur](img/image-3.png)  
 
 ### Vue Carte
 
@@ -84,5 +84,6 @@ Client 2 en UDP :
 ## Conclusion
 
 Ce projet a permis de développer une application Android capable de gérer des connexions client/serveur, de réaliser des opérations mathématiques, et d'afficher des données GPS. Les principaux défis ont inclus la gestion des connexions multiples et l'intégration des données GPS via MQTT. Le projet est disponible sur GitHub à l'adresse suivante : [Lien](https://github.com/Tomthefarmer/SAE3.02-v2).  
+
 
 Projet réalisé par ARBEZ-CARME Thomas
