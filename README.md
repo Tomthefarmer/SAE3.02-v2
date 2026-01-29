@@ -16,7 +16,7 @@ La vue Calculatrice permet de réaliser des opérations mathématiques de base (
 
 ### Vue Réseau
 
-La vue Réseau permet de configurer et de gérer des connexions client/serveur en renseignant l'IP, le port, le protocole (TCP/UDP), et l'utilisateur. Elle permet d'envoyer des messages et de visualiser l'historique des communications.
+La vue Réseau permet de configurer et de gérer des connexions client/serveur en renseignant l'IP, le port, le protocole (TCP/UDP), et l'utilisateur. Elle permet d'envoyer des messages et de visualiser l'historique des communications.  
 Mode Client :  
 ![Mode Client](img/image-2.png)  
 Mode Serveur :  
@@ -29,7 +29,7 @@ La vue Carte est liée à un autre projet (SAE3.01) et permet d'afficher des don
 
 ### Support des Modes Clair et Sombre
 
-L'application supporte les modes clair et sombre pour une meilleure expérience utilisateur.
+L'application supporte les modes clair et sombre pour une meilleure expérience utilisateur.  
 Mode Clair :  
 ![Mode Clair](img/image-5.png)  
 Mode Sombre :   
@@ -73,7 +73,7 @@ Les fichiers Java interagissent avec les fichiers XML pour afficher et gérer le
 
 ## Tests et Résultats
 
-Test de connexion du Client/Serveur avec le Serveur sur un Téléphone physique et deux Clients sur les Téléphones émuler de Android Studio
+Test de connexion du Client/Serveur avec le Serveur sur un Téléphone physique et deux Clients sur les Téléphones émuler de Android Studio  
 Serveur :  
 ![Serveur](img/image-9.png)  
 Client 1 en TCP :   
